@@ -1,5 +1,3 @@
-#!/bin/bash
+ #!/bin/bash         
 
-echo "Test Start"
-
-echo "Test end"
+echo "Hello, World"

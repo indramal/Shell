@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Test Start"
 
 cat <<'EOF' > myfile.txt

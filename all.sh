@@ -6,6 +6,10 @@ echo -e "##################################\n"
 
 sudo apt update && sudo apt upgrade -y
 
+sudo timedatectl set-timezone Asia/Colombo
+
+timedatectl
+
 echo -e "\n############################"
 echo -e "#### Webmin Installation ####"
 echo -e "#############################\n"

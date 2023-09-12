@@ -10,6 +10,14 @@ sudo timedatectl set-timezone Asia/Colombo
 
 timedatectl
 
+echo -e "\n################################"
+echo -e "#### Cyberpanel Installation ####"
+echo -e "#################################\n"
+
+# Link - https://community.cyberpanel.net/t/01-installing-cyberpanel/82/4
+
+sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh)
+
 echo -e "\n############################"
 echo -e "#### Webmin Installation ####"
 echo -e "#############################\n"
@@ -130,14 +138,6 @@ wget https://raw.githubusercontent.com/indramal/Shell/main/datasources.yaml
 sudo mv datasources.yaml /etc/grafana/provisioning/datasources/datasources.yaml
 
 sudo systemctl restart grafana-server
-
-echo -e "\n################################"
-echo -e "#### Cyberpanel Installation ####"
-echo -e "#################################\n"
-
-# Link - https://community.cyberpanel.net/t/01-installing-cyberpanel/82/4
-
-sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh)
 
 echo -e "\n###########################"
 echo -e "#### Installation ended ####"

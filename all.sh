@@ -23,7 +23,11 @@ service webmin start
 
 sudo systemctl enable webmin
 
-sudo /usr/share/webmin/changepass.pl /etc/webmin root 0776046720
+read -s -p "Enter the new WebMin password: " password
+
+sudo /usr/share/webmin/changepass.pl /etc/webmin root "$password"
+
+unset password
 
 echo -e "\n################################"
 echo -e "#### Cyberpanel Installation ####"

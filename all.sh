@@ -2,8 +2,6 @@
 
 echo "#### Installation stating... ####"
 
-sudo su -
-
 sudo apt update && sudo apt upgrade -y
 
 echo "#### Webmin Installation ####"

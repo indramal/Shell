@@ -179,6 +179,8 @@ sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 
 promtool check config /etc/prometheus/prometheus.yml
 
+sudo systemctl restart prometheus
+
 curl -X POST http://localhost:9090/-/reload
 
 sudo systemctl restart prometheus

@@ -182,7 +182,7 @@ promtool check config /etc/prometheus/prometheus.yml
 curl -X POST http://localhost:9090/-/reload
 
 sudo systemctl restart prometheus
-sudo systemctl status prometheus
+#sudo systemctl status prometheus
 
 echo -e "\n#############################"
 echo -e "#### Grafana Installation ####"

@@ -112,6 +112,63 @@ sudo systemctl start node_exporter
 ## promtool check config /etc/prometheus/prometheus.yml
 ## curl -X POST http://localhost:9090/-/reload
 
+echo -e "\n############################################"
+echo -e "#### Prometheus Pushgateway Installation ####"
+echo -e "#############################################\n"
+
+sudo useradd \
+    --system \
+    --no-create-home \
+    --shell /bin/false pushgateway
+
+wget https://github.com/prometheus/pushgateway/releases/download/v1.6.1/pushgateway-1.6.1.linux-amd64.tar.gz
+
+tar -xvf pushgateway-1.6.1.linux-amd64.tar.gz
+
+sudo mv pushgateway-1.6.1.linux-amd64/pushgateway /usr/local/bin/
+
+rm -rf pushgateway*
+
+wget https://raw.githubusercontent.com/indramal/Shell/main/pushgateway.service
+
+sudo mv pushgateway.service /etc/systemd/system/pushgateway.service
+
+sudo systemctl enable pushgateway
+
+sudo systemctl start pushgateway
+
+#sudo systemctl status pushgateway
+
+echo -e "\n##############################################"
+echo -e "#### Alertmanager Pushgateway Installation ####"
+echo -e "###############################################\n"
+
+sudo useradd \
+    --system \
+    --no-create-home \
+    --shell /bin/false alertmanager
+
+wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
+
+tar -xvf alertmanager-0.26.0.linux-amd64.tar.gz
+
+sudo mkdir -p /alertmanager-data /etc/alertmanager
+
+sudo mv alertmanager-0.26.0.linux-amd64/alertmanager /usr/local/bin/
+sudo mv alertmanager-0.26.0.linux-amd64/alertmanager.yml /etc/alertmanager/
+
+rm -rf alertmanager*
+
+wget https://raw.githubusercontent.com/indramal/Shell/main/alertmanager.service
+
+sudo mv alertmanager.service /etc/systemd/system/alertmanager.service
+
+sudo systemctl enable alertmanager
+
+sudo systemctl start alertmanager
+
+#sudo systemctl status alertmanager
+
 echo -e "\n################################"
 echo -e "#### Add prometheus.yml File ####"
 echo -e "#################################\n"
@@ -123,6 +180,9 @@ sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 promtool check config /etc/prometheus/prometheus.yml
 
 curl -X POST http://localhost:9090/-/reload
+
+sudo systemctl restart prometheus
+sudo systemctl status prometheus
 
 echo -e "\n#############################"
 echo -e "#### Grafana Installation ####"
@@ -198,9 +258,11 @@ echo -e "\n#################################"
 echo -e "#################################"
 echo -e "PORTs:"
 echo -e "Prometheus - 9090"
-echo -e "Grafna - 3000"
+echo -e "Grafna - $desired_port"
 echo -e "Node Exporter - 9100"
 echo -e "WebMin - 10000"
 echo -e "Openlitespeed - 7080"
 echo -e "Cyberpanel - 8090"
+echo -e "Push Gateway - 9091"
+echo -e "Alert Manager - 9093"
 echo -e "##################################\n"

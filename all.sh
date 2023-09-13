@@ -140,7 +140,7 @@ sudo mv datasources.yaml /etc/grafana/provisioning/datasources/datasources.yaml
 sudo systemctl restart grafana-server
 
 echo -e "\n###########################"
-echo -e "#### Chenage Grafana Port ####"
+echo -e "#### Chenge Grafana Port ####"
 echo -e "############################\n"
 
 # Set the desired port number
@@ -183,5 +183,12 @@ echo -e "#### Installation ended ####"
 echo -e "############################\n"
 
 echo -e "\n#################################"
-echo -e "#### add prometheus.yml codes ####"
+echo -e "#################################"
+echo -e "PORTs:"
+echo -e "Prometheus - 9090"
+echo -e "Grafna - 3000"
+echo -e "Node Exporter - 9100"
+echo -e "WebMin - 10000"
+echo -e "Openlitespeed - 7080"
+echo -e "Cyberpanel - 8090"
 echo -e "##################################\n"

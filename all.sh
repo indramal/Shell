@@ -140,6 +140,45 @@ sudo mv datasources.yaml /etc/grafana/provisioning/datasources/datasources.yaml
 sudo systemctl restart grafana-server
 
 echo -e "\n###########################"
+echo -e "#### Chenage Grafana Port ####"
+echo -e "############################\n"
+
+# Set the desired port number
+desired_port=5000
+
+# Set the path to the Grafana configuration file
+grafana_config_file="/etc/grafana/grafana.ini"
+
+# Check if the configuration file exists
+if [ -f "$grafana_config_file" ]; then
+  # Use grep and awk to extract the port number, allowing for both formats
+  grafana_port=$(grep -E "^(;)?http_port" "$grafana_config_file" | awk -F= '{print $2}' | tr -d ' ')
+
+  if [ -n "$grafana_port" ]; then
+    if [ "$grafana_port" -eq "$desired_port" ]; then
+      echo "Grafana is already running on port $desired_port."
+    else
+      if [[ "$grafana_port" == ";$desired_port" ]]; then
+        # Remove the semicolon from the port number if it's present
+        sed -i -E "s/;http_port = .*/http_port = $desired_port/" "$grafana_config_file"
+        echo "Changed port from ;$desired_port to $desired_port."
+      else
+        echo "Grafana is running on port $grafana_port. Changing to port $desired_port..."
+        # Use sed to replace the port number in the configuration file, allowing for both formats
+        sed -i -E "s/^;?http_port = .*/http_port = $desired_port/" "$grafana_config_file"
+        echo "Port has been changed to $desired_port."
+      fi
+    fi
+  else
+    echo "Unable to determine the Grafana port."
+  fi
+else
+  echo "Grafana configuration file not found: $grafana_config_file"
+fi
+
+sudo systemctl restart grafana-server
+
+echo -e "\n###########################"
 echo -e "#### Installation ended ####"
 echo -e "############################\n"
 

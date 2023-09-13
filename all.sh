@@ -112,6 +112,18 @@ sudo systemctl start node_exporter
 ## promtool check config /etc/prometheus/prometheus.yml
 ## curl -X POST http://localhost:9090/-/reload
 
+echo -e "\n################################"
+echo -e "#### Add prometheus.yml File ####"
+echo -e "#################################\n"
+
+wget https://raw.githubusercontent.com/indramal/Shell/main/prometheus.yml
+
+sudo mv prometheus.yml /etc/prometheus/prometheus.yml
+
+promtool check config /etc/prometheus/prometheus.yml
+
+curl -X POST http://localhost:9090/-/reload
+
 echo -e "\n#############################"
 echo -e "#### Grafana Installation ####"
 echo -e "##############################\n"
